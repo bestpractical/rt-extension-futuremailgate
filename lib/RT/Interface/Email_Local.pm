@@ -244,6 +244,7 @@ sub Gateway {
             Action      => $action,
             Subject     => $Subject,
             Message     => $Message,
+            CurrentUser => $CurrentUser,
             Ticket      => $Ticket,
             TicketId    => $args{ticket},
             Queue       => $SystemQueueObj,

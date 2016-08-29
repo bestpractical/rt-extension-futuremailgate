@@ -99,8 +99,6 @@ sub _HandleCreate {
             qw(To Cc);
     }
 
-    $head->replace('X-RT-Interface' => 'Email');
-
     # ExtractTicketId may have been overridden, and edited the Subject
     my $subject = Encode::decode( "UTF-8", $head->get('Subject') );
     chomp $subject;

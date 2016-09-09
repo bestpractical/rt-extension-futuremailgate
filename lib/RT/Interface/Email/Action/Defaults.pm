@@ -94,14 +94,13 @@ sub _HandleCreate {
         @Cc =
             grep $_ ne $current_address && !RT::EmailParser->IsRTAddress( $_ ),
             map lc $user->CanonicalizeEmailAddress( $_->address ),
-            map $cleanup->( Email::Address->parse( $head->get( $_ ) ) ),
+            map $cleanup->( Email::Address->parse(
+                  Encode::decode( "UTF-8", $head->get( $_ ) ) ) ),
             qw(To Cc);
     }
 
-    $head->replace('X-RT-Interface' => 'Email');
-
     # ExtractTicketId may have been overridden, and edited the Subject
-    my $subject = $head->get('Subject');
+    my $subject = Encode::decode( "UTF-8", $head->get('Subject') );
     chomp $subject;
 
     my ( $id, $Transaction, $ErrStr ) = $args{Ticket}->Create(

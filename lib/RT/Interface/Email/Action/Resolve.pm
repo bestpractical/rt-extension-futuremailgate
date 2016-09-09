@@ -118,7 +118,7 @@ sub HandleResolve {
         );
     }
 
-    my $From = $args{Message}->head->get("From");
+    my $From = Encode::decode( "UTF-8", $args{Message}->head->get("From") );
 
     my $new_status = $args{'Ticket'}->FirstInactiveStatus;
     return unless $new_status;

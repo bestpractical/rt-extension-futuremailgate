@@ -110,7 +110,7 @@ sub HandleTake {
         @_,
     );
 
-    my $From = $args{Message}->head->get("From");
+    my $From = Encode::decode( "UTF-8", $args{Message}->head->get("From") );
 
     my ( $status, $msg ) = $args{'Ticket'}->SetOwner( $args{Ticket}->CurrentUser->id );
     return if $status;
